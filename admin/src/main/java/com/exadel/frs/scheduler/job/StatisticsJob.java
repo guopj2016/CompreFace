@@ -10,6 +10,7 @@ import com.exadel.frs.system.feign.ApperyStatisticsClient;
 import com.exadel.frs.system.feign.StatisticsFacesEntity;
 import feign.FeignException;
 import lombok.NoArgsConstructor;
+import org.apache.commons.lang3.Range;
 import org.quartz.JobExecutionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,6 +20,8 @@ import org.springframework.stereotype.Component;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static org.apache.commons.lang3.Range.between;
 
 @NoArgsConstructor
 @Component
@@ -63,31 +66,27 @@ public class StatisticsJob extends QuartzJobBean {
     }
 
     private String getFacesRange(int facesCount) {
-        String range = "0";
-
         if (facesCount == 0) {
-            return range;
-        } else if (facesCount >= 1 && facesCount <= 10) {
-            range = "1-10";
-        } else if (facesCount >= 10 && facesCount <= 50) {
-            range = "10-50";
-        } else if (facesCount >= 50 && facesCount <= 200) {
-            range = "50-200";
-        } else if (facesCount >= 200 && facesCount <= 500) {
-            range = "200-500";
-        } else if (facesCount >= 500 && facesCount <= 2000) {
-            range = "500-2000";
-        } else if (facesCount >= 2000 && facesCount <= 10000) {
-            range = "2000-10000";
-        } else if (facesCount >= 10000 && facesCount <= 50000) {
-            range = "10000-50000";
-        } else if (facesCount >= 50000 && facesCount <= 200000) {
-            range = "50000-200000";
-        } else if (facesCount >= 200000 && facesCount <= 1000000) {
-            range = "200000-1000000";
-        } else {
-            range = "1000000+";
+            return "0";
         }
-        return range;
+
+        List<Range> ranges = List.of(
+                Range.between(1, 10),
+                Range.between(10, 50),
+                Range.between(50, 200),
+                Range.between(500, 2000),
+                between(2000, 10000),
+                between(10000, 50000),
+                between(50000, 200000),
+                between(200000, 1000000)
+        );
+
+        for (Range range : ranges) {
+            if (range.contains(facesCount)) {
+                return range.getMinimum() + "-" + range.getMaximum();
+            }
+        }
+
+        return "1000000+";
     }
 }
