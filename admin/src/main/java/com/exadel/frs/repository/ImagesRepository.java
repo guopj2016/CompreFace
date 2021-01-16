@@ -16,7 +16,6 @@
 
 package com.exadel.frs.repository;
 
-import com.exadel.frs.entity.Face;
 import com.exadel.frs.entity.Image;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -29,5 +28,4 @@ import java.util.List;
 public interface ImagesRepository extends JpaRepository<Image, String> {
 
     List<Image> findByFaceId(String modelApiKey);
-
 }

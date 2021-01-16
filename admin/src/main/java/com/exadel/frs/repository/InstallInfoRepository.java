@@ -18,7 +18,9 @@ package com.exadel.frs.repository;
 
 import com.exadel.frs.entity.InstallInfo;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface InstallInfoRepository extends JpaRepository<InstallInfo, String> {
 
 }

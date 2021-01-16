@@ -9,19 +9,20 @@ import com.exadel.frs.repository.ModelRepository;
 import com.exadel.frs.system.feign.ApperyStatisticsClient;
 import com.exadel.frs.system.feign.StatisticsFacesEntity;
 import feign.FeignException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import lombok.NoArgsConstructor;
-import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.quartz.QuartzJobBean;
 import org.springframework.stereotype.Component;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @NoArgsConstructor
 @Component
-public class StatisticsJob implements Job {
+public class StatisticsJob extends QuartzJobBean {
 
     @Value("${app.feign.appery-io.api-key}")
     private String statisticsApiKey;
@@ -39,7 +40,7 @@ public class StatisticsJob implements Job {
     }
 
     @Override
-    public void execute(final JobExecutionContext context) {
+    public void executeInternal(final JobExecutionContext context) {
         List<Model> models = modelRepository.findAll();
         Map<String, String> facesModelGuidAndRangeMap = new HashMap<>();
 

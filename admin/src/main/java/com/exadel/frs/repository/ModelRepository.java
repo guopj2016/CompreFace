@@ -17,11 +17,14 @@
 package com.exadel.frs.repository;
 
 import com.exadel.frs.entity.Model;
-import java.util.List;
-import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
+import java.util.List;
+import java.util.Optional;
+
+@Repository
 public interface ModelRepository extends JpaRepository<Model, Long> {
 
     @Query("select distinct m " +

@@ -64,6 +64,22 @@ spring:
         ssl:
           trust: ${EMAIL_HOST}
         auth: true
+
+  quartz:
+    job-store-type: jdbc
+    jdbc:
+      initialize-schema: always
+    properties:
+      org.quartz:
+        scheduler:
+          instanceName: statistics scheduler
+          instanceId: AUTO
+        jobStore:
+          driverDelegateClass: org.quartz.impl.jdbcjobstore.PostgreSQLDelegate
+        threadPool:
+          # thread pool capacity (default is 10)
+          threadCount: 1
+
   main:
     allow-bean-definition-overriding: true
 
