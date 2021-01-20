@@ -2,8 +2,8 @@ SHELL := /bin/bash
 .DEFAULT_GOAL := default
 .PHONY := default up build-images build-cuda
 
-IMAGE := exadel/comrepafe-core
-VERSION ?= dev
+IMAGE := exadel/compreface-core
+VERSION ?= v0.0.0
 INSIGHTFACE_BUILD_ARGS := --build-arg FACE_DETECTION_PLUGIN=insightface.FaceDetector \
                           --build-arg CALCULATION_PLUGIN=insightface.Calculator \
                           --build-arg EXTRA_PLUGINS=insightface.LandmarksDetector
