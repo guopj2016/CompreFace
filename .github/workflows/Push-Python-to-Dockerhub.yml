@@ -25,4 +25,4 @@ jobs:
      - name: Docker Push
        env:
          PUSH_COMPREFACE_CORE: ${{secrets.PUSH_COMPREFACE_CORE}}
-       run: docker push "${PUSH_COMPREFACE_CORE:${{ github.event.inputs.version }}}"
+       run: docker push "$PUSH_COMPREFACE_CORE":${{ github.event.inputs.version }}
