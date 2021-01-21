@@ -23,4 +23,6 @@ jobs:
        run: |
          make build-images VERSION=${{ github.event.inputs.version }}
      - name: Docker Push
-       run: docker push ${{secrets.DOCKER_HUB_LOGIN}}/compreface-core:0.5.0-insightface-gpu
+       run: |
+         docker tag compreface-core ${{secrets.DOCKER_HUB_LOGIN}}/compreface-core:${{ github.event.inputs.version }}
+         docker push ${{secrets.DOCKER_HUB_LOGIN}}/compreface-core:${{ github.event.inputs.version }}
