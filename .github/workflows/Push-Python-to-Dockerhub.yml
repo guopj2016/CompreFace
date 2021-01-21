@@ -23,4 +23,6 @@ jobs:
        run: |
          make build-images VERSION=${{ github.event.inputs.version }}
      - name: Docker Push
-       run: docker push exadel/compreface-core:${{ github.event.inputs.version }}
+       env:
+         PUSH_COMPREFACE_CORE: ${{secrets.PUSH_COMPREFACE_CORE}}
+       run: docker push "${PUSH_COMPREFACE_CORE:${{ github.event.inputs.version }}}"
