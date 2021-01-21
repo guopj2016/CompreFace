@@ -23,7 +23,7 @@ jobs:
        run: |
          make build-images VERSION=${{ github.event.inputs.version }}
      - name: Push to Docker Hub
-     - uses: docker/build-push-action@v1
+       uses: docker/build-push-action@v1
        with:
          username: ${{secrets.DOCKER_HUB_LOGIN}}
          password: ${{secrets.DOCKER_HUB_PWD}}
