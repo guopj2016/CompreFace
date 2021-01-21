@@ -22,8 +22,8 @@ jobs:
        working-directory: ./embedding-calculator/
        run: |
          make build-images VERSION=${{ github.event.inputs.version }}
+         docker tag exadel/compreface-core:${{ github.event.inputs.version }} ${{secrets.DOCKER_HUB_LOGIN}}/compreface-core:latest
      - name: Docker Push
        run: |
          docker login -u "${DOCKER_HUB_LOGIN}"
-         docker tag exadel/compreface-core:${{ github.event.inputs.version }} ${{secrets.DOCKER_HUB_LOGIN}}/compreface-core:latest
          docker push ${{secrets.DOCKER_HUB_LOGIN}}/compreface-core:latest
